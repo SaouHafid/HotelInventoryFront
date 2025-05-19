@@ -1,0 +1,37 @@
+<p>Welcome to {{ hotelName }}</p>
+<hotelinv-header></hotelinv-header>
+<!-- Button with event binding -->
+<button (click)="toggle_Visibility()">Toggle Text</button>
+<!-- Div with property binding for visibility -->
+<div [hidden]="toggleVisibility">
+    <p>This is the toggled text!</p>
+</div>
+
+<div>
+    <h5> Error: {{ getError$ | async }}</h5>
+    <button class="btn btn-success" (click)="addRoom()">Add Room</button><br/>
+    <h2>Room List</h2>
+    <!-- <hotelinv-rooms-list [roomList]="roomList" [title]="title" (selectedRoom)="selectRoom($event)"></hotelinv-rooms-list> -->
+    <hotelinv-rooms-list [roomList]="rooms$ | async" [title]="title" (selectedRoom)="selectRoom($event)"></hotelinv-rooms-list>
+    <!-- <div *ngIf="selectedRoom">
+        <h3>Selected Room</h3>
+        <p>Room Number: {{ selectedRoom.number }}</p>
+        <p>Room Type: {{ selectedRoom.roomType }}</p>
+        <p>Price: {{ selectedRoom.price | currency: 'EUR' }}</p>
+        <p>Amenities: {{ selectedRoom.amenities }}</p>
+        <p>Checkin Date: {{ selectedRoom.checkInDate | date: 'short' }}</p>
+        <p>Status: {{ selectedRoom.status }}</p>
+        <p>Rating: {{ selectedRoom.rating | number:'1.1-2' }}</p>
+        <p>Selected: Yes</p>
+        <h3>Selected Room</h3>
+        <p>Room Number: {{ selectedRoom.number }}</p>
+        <p>Room Type: {{ selectedRoom.roomType }}</p>
+        <p>Price: {{ selectedRoom.price | currency: 'EUR' }}</p>
+        <p>Amenities: {{ selectedRoom.amenities }}</p>
+        <p>Checkin Date: {{ selectedRoom.checkInDate | date: 'short' }}</p>
+        <p>Status: {{ selectedRoom.status }}</p>
+        <p>Rating: {{ selectedRoom.rating | number:'1.1-2' }}</p>
+        <p>Selected: Yes</p>
+</div> -->
+</div>
+<router-outlet></router-outlet>

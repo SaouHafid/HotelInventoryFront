@@ -1,0 +1,269 @@
+<p>booking works!</p>
+<div class="container mt-4">
+    <h2 class="mb-4">Add New Booking</h2>
+    <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Room ID -->
+                <div class="form-group mb-3">
+                    <label for="roomId">Room ID</label>
+                    <input type="text" id="roomId" class="form-control"
+                        formControlName="roomId"
+                        [ngClass]="{'is-invalid': bookingForm.get('roomId')?.touched && bookingForm.get('roomId')?.invalid}">
+                    <div *ngIf="bookingForm.get('roomId')?.touched && bookingForm.get('roomId')?.invalid"
+                        class="alert alert-danger py-1 mt-2 mb-0">
+                        Room ID is required.
+                    </div>
+                </div>
+                <!-- Guest Name -->
+                <div class="form-group mb-3">
+                    <label for="guestName">Guest Name</label>
+                    <input type="text" id="guestName" class="form-control"
+                        formControlName="guestName"
+                        [ngClass]="{'is-invalid': bookingForm.get('guestName')?.touched && bookingForm.get('guestName')?.invalid}">
+                    <div *ngIf="bookingForm.get('guestName')?.touched && bookingForm.get('guestName')?.errors as errors"
+                        class="alert alert-danger py-1 mt-2 mb-0">
+                        <div *ngIf="errors['minlength']">Name must be at least 3 characters.</div>
+                    </div>
+                </div>
+                <!-- Guest Email -->
+                <div class="form-group mb-3">
+                    <label for="guestEmail">Guest Email</label>
+                    <input type="email" id="guestEmail" class="form-control"
+                        formControlName="guestEmail"
+                        [ngClass]="{'is-invalid': bookingForm.get('guestEmail')?.touched && bookingForm.get('guestEmail')?.invalid}">
+                    <div *ngIf="bookingForm.get('guestEmail')?.touched && bookingForm.get('guestEmail')?.errors as errors"
+                        class="alert alert-danger py-1 mt-2 mb-0">
+                        <div *ngIf="errors['required']">Email is required.</div>
+                        <div *ngIf="errors['email']">Invalid email format.</div>
+                    </div>
+                </div>
+                <!-- Mobile Number -->
+                <div class="form-group mb-3">
+                    <label for="mobileNumber">Mobile Number</label>
+                    <input type="text" id="mobileNumber" class="form-control"
+                        formControlName="mobileNumber"
+                        [ngClass]="{'is-invalid': bookingForm.get('mobileNumber')?.touched && bookingForm.get('mobileNumber')?.invalid}">
+                    <div *ngIf="bookingForm.get('mobileNumber')?.touched && bookingForm.get('mobileNumber')?.invalid"
+                        class="alert alert-danger py-1 mt-2 mb-0">
+                        Mobile number is required.
+                    </div>
+                </div>
+                <!-- Guest Count -->
+                <div class="form-group mb-3">
+                    <label for="guestCount">Guest Count</label>
+                    <input type="number" id="guestCount" class="form-control"
+                        formControlName="guestCount"
+                        [ngClass]="{'is-invalid': bookingForm.get('guestCount')?.touched && bookingForm.get('guestCount')?.invalid}">
+                    <div *ngIf="bookingForm.get('guestCount')?.touched && bookingForm.get('guestCount')?.invalid"
+                        class="alert alert-danger py-1 mt-2 mb-0">
+                        Guest count is required.
+                    </div>
+                </div>
+                <!-- Booking Amount -->
+                <div class="form-group mb-3">
+                    <label for="bookingAmount">Booking Amount</label>
+                    <input type="number" id="bookingAmount" class="form-control"
+                        formControlName="bookingAmount"
+                        [ngClass]="{'is-invalid': bookingForm.get('bookingAmount')?.touched && bookingForm.get('bookingAmount')?.invalid}">
+                    <div *ngIf="bookingForm.get('bookingAmount')?.touched && bookingForm.get('bookingAmount')?.invalid"
+                        class="alert alert-danger py-1 mt-2 mb-0">
+                        Booking amount is required.
+                    </div>
+                </div>
+                <!-- Booking Status -->
+                <div class="form-group mb-3">
+                    <label for="bookingStatus">Booking Status</label>
+                    <select id="bookingStatus" class="form-control"
+                        formControlName="bookingStatus"
+                        [ngClass]="{'is-invalid': bookingForm.get('bookingStatus')?.touched && bookingForm.get('bookingStatus')?.invalid}">
+                        <option value="">Select status</option>
+                        <option value="Confirmed">Confirmed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                    <div *ngIf="bookingForm.get('bookingStatus')?.touched && bookingForm.get('bookingStatus')?.invalid"
+                        class="alert alert-danger py-1 mt-2 mb-0">
+                        Booking status is required.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <!-- Check-In Date -->
+                <div class="form-group mb-3">
+                    <label for="checkInDate">Check-In Date</label>
+                    <div class="input-group">
+                        <input class="form-control" ngbDatepicker #checkInDp="ngbDatepicker"
+                            formControlName="checkInDate" placeholder="yyyy-mm-dd" [readonly]="true"
+                            [ngClass]="{'is-invalid': bookingForm.get('checkInDate')?.touched && bookingForm.get('checkInDate')?.invalid}">
+                        <button class="btn btn-outline-secondary" (click)="checkInDp.toggle()" type="button">
+                            <i class="bi bi-calendar"></i>
+                        </button>
+                    </div>
+                    <div *ngIf="bookingForm.get('checkInDate')?.touched && bookingForm.get('checkInDate')?.invalid"
+                        class="alert alert-danger py-1 mt-2 mb-0">
+                        Check-In Date is required.
+                    </div>
+                </div>
+                <!-- Check-Out Date -->
+                <div class="form-group mb-3">
+                    <label for="checkOutDate">Check-Out Date</label>
+                    <div class="input-group">
+                        <input class="form-control" ngbDatepicker #checkOutDp="ngbDatepicker"
+                            formControlName="checkOutDate" placeholder="yyyy-mm-dd" [readonly]="true"
+                            [ngClass]="{'is-invalid': bookingForm.get('checkOutDate')?.touched && bookingForm.get('checkOutDate')?.invalid}">
+                        <button class="btn btn-outline-secondary" (click)="checkOutDp.toggle()" type="button">
+                            <i class="bi bi-calendar"></i>
+                        </button>
+                    </div>
+                    <div *ngIf="bookingForm.get('checkOutDate')?.touched && bookingForm.get('checkOutDate')?.invalid"
+                        class="alert alert-danger py-1 mt-2 mb-0">
+                        Check-Out Date is required.
+                    </div>
+                </div>
+                <!-- Booking Date -->
+                <div class="form-group mb-3">
+                    <label for="bookingDate">Booking Date</label>
+                    <div class="input-group">
+                        <input class="form-control" ngbDatepicker #bookingDp="ngbDatepicker"
+                            formControlName="bookingDate" placeholder="yyyy-mm-dd" [readonly]="true"
+                            [ngClass]="{'is-invalid': bookingForm.get('bookingDate')?.touched && bookingForm.get('bookingDate')?.invalid}">
+                        <button class="btn btn-outline-secondary" (click)="bookingDp.toggle()" type="button">
+                            <i class="bi bi-calendar"></i>
+                        </button>
+                    </div>
+                    <div *ngIf="bookingForm.get('bookingDate')?.touched && bookingForm.get('bookingDate')?.invalid"
+                        class="alert alert-danger py-1 mt-2 mb-0">
+                        Booking date is required.
+                    </div>
+                </div>
+                <!-- Check-In Date Error -->
+                <div *ngIf="bookingForm.get('checkInDate')?.touched && bookingForm.get('checkInDate')?.errors?.['maxBookingDays']"
+                     class="alert alert-danger py-1 mt-2 mb-0">
+                  The room booking cannot be more than 25 days, please correct the dates.
+                </div>
+                <!-- Address Expand/Collapse -->
+                <div class="mb-3">
+                    <button class="btn btn-outline-secondary" type="button"
+                        (click)="addressCollapsed = !addressCollapsed">
+                        Address Details
+                        <span *ngIf="addressCollapsed" class="ms-2">
+                            <i class="bi bi-chevron-down"></i>
+                        </span>
+                        <span *ngIf="!addressCollapsed" class="ms-2">
+                            <i class="bi bi-chevron-up"></i>
+                        </span>
+                    </button>
+                </div>
+                <div [ngbCollapse]="addressCollapsed">
+                    <div formGroupName="address" class="border rounded p-3 mb-3 bg-light">
+                        <h5>Guest Address</h5>
+                        <div class="form-group mb-2">
+                            <label for="guestAddress">Address</label>
+                            <input type="text" id="guestAddress" class="form-control"
+                                formControlName="guestAddress"
+                                [ngClass]="{'is-invalid': bookingForm.get('address')?.get('guestAddress')?.touched && bookingForm.get('address')?.get('guestAddress')?.invalid}">
+                            <div *ngIf="bookingForm.get('address')?.get('guestAddress')?.touched && bookingForm.get('address')?.get('guestAddress')?.invalid"
+                                class="alert alert-danger py-1 mt-2 mb-0">
+                                Address is required.
+                            </div>
+                        </div>
+                        <div class="form-group mb-2">
+                            <label for="guestCity">City</label>
+                            <input type="text" id="guestCity" class="form-control"
+                                formControlName="guestCity">
+                        </div>
+                        <div class="form-group mb-2">
+                            <label for="guestState">State</label>
+                            <input type="text" id="guestState" class="form-control"
+                                formControlName="guestState">
+                        </div>
+                        <div class="form-group mb-2">
+                            <label for="guestCountry">Country</label>
+                            <input type="text" id="guestCountry" class="form-control"
+                                formControlName="guestCountry">
+                        </div>
+                        <div class="form-group mb-2">
+                            <label for="guestZipCode">Zip Code</label>
+                            <input type="text" id="guestZipCode" class="form-control"
+                                formControlName="guestZipCode">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Guests Table -->
+        <div class="mt-4" formArrayName="guests">
+            <h5>Guest List</h5>
+            <table class="table table-bordered" *ngIf="guests.controls.length > 0">
+                <thead>
+                    <tr>
+                        <th>Guest Name</th>
+                        <th>Guest Age</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let guest of guests.controls; let i = index" [formGroupName]="i">
+                        <td>
+                            <input type="text" class="form-control"
+                                formControlName="guestName" placeholder="Name"
+                                [ngClass]="{'is-invalid': guest.get('guestName')?.touched && guest.get('guestName')?.invalid}">
+                            <div *ngIf="guest.get('guestName')?.touched && guest.get('guestName')?.errors as errors"
+                                class="alert alert-danger py-1 mt-2 mb-0">
+                                <div *ngIf="errors['required']">Name is required.</div>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control"
+                                formControlName="guestAge" placeholder="Age" min="0"
+                                [ngClass]="{'is-invalid': guest.get('guestAge')?.touched && guest.get('guestAge')?.invalid}">
+                            <div *ngIf="guest.get('guestAge')?.touched && guest.get('guestAge')?.errors as errors"
+                                class="alert alert-danger py-1 mt-2 mb-0">
+                                <div *ngIf="errors['required']">Age is required.</div>
+                                <div *ngIf="errors['min']">Age must be 0 or greater.</div>
+                            </div>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm" (click)="removeGuest(i)">
+                                Remove
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-outline-primary" (click)="addGuest()">
+                Add Guest
+            </button>
+        </div>
+        <!-- Terms and Conditions Checkbox -->
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="TnC" formControlName="TnC"
+                [ngClass]="{'is-invalid': bookingForm.get('TnC')?.touched && bookingForm.get('TnC')?.invalid}" />
+            <label class="form-check-label" for="TnC">
+                I agree to the Terms & Conditions
+            </label>
+            <div *ngIf="bookingForm.get('TnC')?.touched && bookingForm.get('TnC')?.invalid"
+                class="alert alert-danger py-1 mt-2 mb-0">
+                You must agree before submitting.
+            </div>
+        </div>
+        <!-- Submit Button -->
+        <button class="btn btn-primary mt-3" type="submit" [disabled]="bookingForm.invalid">
+            Add Booking
+        </button>
+    </form>
+
+    <!-- Success Message -->
+    <div *ngIf="successMessage" class="alert alert-success mt-3">
+      {{ successMessage }}
+    </div>
+
+    <!-- Booking Details -->
+    <div *ngIf="bookingDetails" class="card mt-4">
+      <div class="card-header">Booking Details</div>
+      <div class="card-body">
+        <pre>{{ bookingDetails | json }}</pre>
+      </div>
+    </div>
+</div>
